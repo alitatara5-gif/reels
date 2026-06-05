@@ -16,13 +16,13 @@ class VideoViewHolder(
 
     private val playerView: PlayerView = itemView.findViewById(R.id.playerView)
     private val progressBar: ProgressBar = itemView.findViewById(R.id.progressBar)
-    private val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
+    private val tvDescription: TextView = itemView.findViewById(R.id.tvDescription)
     
     private var currentUrl: String? = null
 
     fun bind(videoItem: VideoItem) {
         currentUrl = videoItem.videoUrl
-        tvTitle.text = videoItem.title
+        tvDescription.text = videoItem.title
     }
 
     fun playVideo() {
@@ -31,7 +31,5 @@ class VideoViewHolder(
         }
     }
 
-    fun pauseVideo() {
-        playerManager.pauseVideo()
-    }
+    fun pauseVideo() { playerManager.pauseVideo() }
 }

@@ -15,7 +15,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="250dp"
         android:background="@drawable/bg_gradient"
         app:layout_constraintBottom_toBottomOf="parent" />
 
@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/actionContainer">
@@ -32,7 +33,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Judul Video"
+            android:text="\@AkunHost"
             android:textColor="#FFFFFF"
             android:textSize="16sp" 
             android:textStyle="bold"
@@ -46,10 +47,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="8dp"
-            android:text="Deskripsi video akan muncul di sini..."
-            android:textColor="#E0E0E0"
-            android:textSize="13sp" />
+            android:text="Live streaming / Video Description"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -57,7 +57,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="32dp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -65,23 +66,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="❤️"
-            android:textSize="26sp"
-            android:layout_marginBottom="16dp"/>
+            android:text="👍"
+            android:textSize="28sp"
+            android:layout_marginBottom="24dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="💬"
-            android:textSize="26sp"
-            android:layout_marginBottom="16dp"/>
+            android:textSize="28sp"
+            android:layout_marginBottom="24dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="↗️"
-            android:textSize="26sp"
-            android:layout_marginBottom="16dp"/>
+            android:text="↪️"
+            android:textSize="28sp"/>
     </LinearLayout>
 
     <ProgressBar

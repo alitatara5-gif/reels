@@ -1,6 +1,7 @@
 package com.example.videofeed.ui.feed
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -22,7 +23,7 @@ class FeedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
 
-        // EKSEKUSI IMMERSIVE MODE (FULLSCREEN SEJATI)
+        // Buat Layar Edge-to-Edge (Ala Facebook Reels)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         WindowInsetsControllerCompat(window, window.decorView).let { controller ->
             controller.hide(WindowInsetsCompat.Type.systemBars())
@@ -31,11 +32,22 @@ class FeedActivity : AppCompatActivity() {
 
         viewPager = findViewById(R.id.viewPager)
         playerManager = VideoPlayerManager(this)
+        
+        val targetUrl = intent.getStringExtra("EXTRA_TARGET_URL") ?: ""
         viewModel = FeedViewModel(AppModule.videoRepository)
+        
+        if (targetUrl.isNotEmpty()) {
+            viewModel.loadVideos(targetUrl)
+        }
 
         viewModel.videos.observe(this, Observer { videos ->
-            val adapter = VideoPagerAdapter(videos, playerManager)
-            viewPager.adapter = adapter
+            if (videos.isEmpty()) {
+                Toast.makeText(this, "Tidak ada video yang ditemukan", Toast.LENGTH_LONG).show()
+                finish()
+            } else {
+                val adapter = VideoPagerAdapter(videos, playerManager)
+                viewPager.adapter = adapter
+            }
         })
     }
 

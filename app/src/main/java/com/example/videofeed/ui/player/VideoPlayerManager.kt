@@ -27,8 +27,8 @@ class VideoPlayerManager(private val context: Context) {
 
     private val playerListener = object : Player.Listener {
         override fun onVideoSizeChanged(videoSize: VideoSize) {
-            currentPlayerView?.let { playerView ->
-                playerView.resizeMode = AspectRatioUtil.getResizeMode(videoSize)
+            currentPlayerView?.let {
+                it.resizeMode = AspectRatioUtil.getResizeMode(videoSize)
             }
         }
 
@@ -48,14 +48,13 @@ class VideoPlayerManager(private val context: Context) {
 
     fun playVideo(url: String, playerView: PlayerView, progressBar: ProgressBar) {
         val player = getPlayer()
-        
         currentPlayerView?.player = null
         currentPlayerView = playerView
         currentProgressBar = progressBar
         
         playerView.player = player
         playerView.visibility = View.INVISIBLE
-        progressBar.visibility = View.VISIBLE // Munculkan loading saat mulai ditarik
+        progressBar.visibility = View.VISIBLE
 
         val mediaItem = MediaItem.fromUri(url)
         player.setMediaItem(mediaItem)
@@ -63,9 +62,7 @@ class VideoPlayerManager(private val context: Context) {
         player.play()
     }
 
-    fun pauseVideo() {
-        exoPlayer?.pause()
-    }
+    fun pauseVideo() { exoPlayer?.pause() }
 
     fun releasePlayer() {
         exoPlayer?.removeListener(playerListener)

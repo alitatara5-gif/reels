@@ -14,8 +14,7 @@ class VideoPagerAdapter(
 ) : RecyclerView.Adapter<VideoViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_video, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_video, parent, false)
         return VideoViewHolder(view, playerManager)
     }
 
