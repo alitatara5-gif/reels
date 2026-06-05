@@ -7,7 +7,7 @@ import java.util.regex.Pattern
 class VideoRemoteDataSource {
     
     // 1. MASUKKAN LINK WEBSITE SPESIFIK ABANG DI SINI
-    private val targetWebsiteUrl = "https://stripchat.com/meiguigongzhu520"
+    private val targetWebsiteUrl = "https://stripchat.com/"
 
     fun fetchVideos(): List<VideoItem> {
         val videoList = mutableListOf<VideoItem>()
