@@ -2,6 +2,7 @@ package com.example.videofeed.ui.player
 
 import android.content.Context
 import android.view.View
+import android.widget.ProgressBar
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.VideoSize
@@ -12,6 +13,7 @@ import com.example.videofeed.util.AspectRatioUtil
 class VideoPlayerManager(private val context: Context) {
     private var exoPlayer: ExoPlayer? = null
     private var currentPlayerView: PlayerView? = null
+    private var currentProgressBar: ProgressBar? = null
 
     fun getPlayer(): ExoPlayer {
         if (exoPlayer == null) {
@@ -32,27 +34,28 @@ class VideoPlayerManager(private val context: Context) {
 
         override fun onPlaybackStateChanged(playbackState: Int) {
             when (playbackState) {
+                Player.STATE_BUFFERING -> {
+                    currentProgressBar?.visibility = View.VISIBLE
+                }
                 Player.STATE_READY -> {
-                    // Tampilkan PlayerView saat video siap dimuat
                     currentPlayerView?.visibility = View.VISIBLE
+                    currentProgressBar?.visibility = View.GONE
                 }
                 else -> {}
             }
         }
     }
 
-    fun playVideo(url: String, playerView: PlayerView) {
+    fun playVideo(url: String, playerView: PlayerView, progressBar: ProgressBar) {
         val player = getPlayer()
-
-        // Lepaskan player dari view sebelumnya
+        
         currentPlayerView?.player = null
-
-        // Pasang player ke view baru
-        playerView.player = player
         currentPlayerView = playerView
-
-        // Sembunyikan PlayerView sampai video siap dimuat
-        currentPlayerView?.visibility = View.INVISIBLE
+        currentProgressBar = progressBar
+        
+        playerView.player = player
+        playerView.visibility = View.INVISIBLE
+        progressBar.visibility = View.VISIBLE // Munculkan loading saat mulai ditarik
 
         val mediaItem = MediaItem.fromUri(url)
         player.setMediaItem(mediaItem)
@@ -69,5 +72,6 @@ class VideoPlayerManager(private val context: Context) {
         exoPlayer?.release()
         exoPlayer = null
         currentPlayerView = null
+        currentProgressBar = null
     }
 }

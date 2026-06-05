@@ -1,6 +1,8 @@
 package com.example.videofeed.ui.feed.viewholder
 
 import android.view.View
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.media3.ui.PlayerView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.videofeed.R
@@ -13,16 +15,19 @@ class VideoViewHolder(
 ) : RecyclerView.ViewHolder(itemView) {
 
     private val playerView: PlayerView = itemView.findViewById(R.id.playerView)
+    private val progressBar: ProgressBar = itemView.findViewById(R.id.progressBar)
+    private val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
+    
     private var currentUrl: String? = null
 
     fun bind(videoItem: VideoItem) {
         currentUrl = videoItem.videoUrl
-        // Opsional: set thumbnail di sini
+        tvTitle.text = videoItem.title
     }
 
     fun playVideo() {
         currentUrl?.let { url ->
-            playerManager.playVideo(url, playerView)
+            playerManager.playVideo(url, playerView, progressBar)
         }
     }
 

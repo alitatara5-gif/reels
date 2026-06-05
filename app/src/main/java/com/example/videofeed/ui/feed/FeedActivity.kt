@@ -2,6 +2,9 @@ package com.example.videofeed.ui.feed
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.videofeed.R
@@ -19,23 +22,20 @@ class FeedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
 
+        // EKSEKUSI IMMERSIVE MODE (FULLSCREEN SEJATI)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowInsetsControllerCompat(window, window.decorView).let { controller ->
+            controller.hide(WindowInsetsCompat.Type.systemBars())
+            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+
         viewPager = findViewById(R.id.viewPager)
         playerManager = VideoPlayerManager(this)
-        
-        // Manual DI inject
         viewModel = FeedViewModel(AppModule.videoRepository)
 
         viewModel.videos.observe(this, Observer { videos ->
             val adapter = VideoPagerAdapter(videos, playerManager)
             viewPager.adapter = adapter
-        })
-
-        // Opsional: Pause video ketika scroll sedang berlangsung
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                // Adapter onViewAttachedToWindow akan meng-handle play
-            }
         })
     }
 
