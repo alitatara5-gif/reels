@@ -42,3 +42,6 @@ dependencies {
     implementation "androidx.media3:media3-exoplayer:$media3_version"
     implementation "androidx.media3:media3-ui:$media3_version"
 }
+
+    // Library untuk Scraping HTML
+    implementation 'org.jsoup:jsoup:1.17.2'
